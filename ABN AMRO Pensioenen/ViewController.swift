@@ -12,10 +12,29 @@ import WebKit
 class ViewController: UIViewController {
     @IBOutlet weak var myWebView: WKWebView!
     
+    @IBOutlet weak var toolbar: UIToolbar!
+    @IBAction func onBack(_ sender: UIBarButtonItem) {
+        toolbar.isHidden=true
+        myWebView.goBack()
+    }
+    @IBAction func print(_ sender: UIBarButtonItem) {
+   
+        var pInfo:UIPrintInfo = UIPrintInfo.printInfo()
+//        pInfo.outputType = UIPrintInfoOutputType.General
+        pInfo.jobName = (myWebView.url?.absoluteString)!
+//        pInfo.orientation = UIPrintInfoO
+        
+        var printController = UIPrintInteractionController.shared
+        printController.printInfo = pInfo
+//        printController.showsPageRange = true
+        printController.printFormatter = myWebView.viewPrintFormatter()
+        printController.present(animated: true, completionHandler: nil)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        toolbar.isHidden=true
         let url = URL(string:"https://demo.abnamropensioenen.nl")
         
         myWebView.load(URLRequest(url:url!))
@@ -32,11 +51,15 @@ extension ViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         //  if let host = navigationAction.request.url?.host {
-        if (navigationAction.request.url?.absoluteString.range(of:".pdf") != nil){
+//        print(navigationAction.request.url?.absoluteString)
+        if (navigationAction.request.url?.absoluteString.range(of:".pdf") != nil  ){
             //          decisionHandler(.allow)
             UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: nil)
             //
             //              return
+        }
+        if(navigationAction.request.url?.absoluteString.range(of:"blob") != nil){
+            toolbar.isHidden=false
         }
         //   }
         

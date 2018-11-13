@@ -26,6 +26,22 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9gx-78-llG">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Back" id="Nd5-Me-WA9">
+                                        <connections>
+                                            <action selector="onBack:" destination="BYZ-38-t0r" id="dnH-fi-5Oo"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Print" id="RVg-IJ-YbV">
+                                        <connections>
+                                            <action selector="print:" destination="BYZ-38-t0r" id="dHd-hJ-7DC"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -38,6 +54,7 @@
                     </view>
                     <connections>
                         <outlet property="myWebView" destination="vM0-6L-vtc" id="bBb-FS-OuT"/>
+                        <outlet property="toolbar" destination="9gx-78-llG" id="UtS-Je-zox"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
