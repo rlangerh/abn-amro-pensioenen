@@ -19,12 +19,12 @@ class ViewController: UIViewController {
     }
     @IBAction func print(_ sender: UIBarButtonItem) {
    
-        var pInfo:UIPrintInfo = UIPrintInfo.printInfo()
+        let pInfo:UIPrintInfo = UIPrintInfo.printInfo()
 //        pInfo.outputType = UIPrintInfoOutputType.General
         pInfo.jobName = (myWebView.url?.absoluteString)!
 //        pInfo.orientation = UIPrintInfoO
         
-        var printController = UIPrintInteractionController.shared
+        let printController = UIPrintInteractionController.shared
         printController.printInfo = pInfo
 //        printController.showsPageRange = true
         printController.printFormatter = myWebView.viewPrintFormatter()
@@ -50,24 +50,19 @@ class ViewController: UIViewController {
 extension ViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        //  if let host = navigationAction.request.url?.host {
-//        print(navigationAction.request.url?.absoluteString)
-        if (navigationAction.request.url?.absoluteString.range(of:".pdf") != nil  ){
-            //          decisionHandler(.allow)
+        
+        if (navigationAction.request.url?.absoluteString.range(of:".pdf") != nil ||  navigationAction.request.url?.absoluteString.range(of:"https://www.digid.nl") != nil){
             UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: nil)
-            //
-            //              return
+        }else if(navigationAction.request.url?.absoluteString.range(of:".digid") != nil){
+                toolbar.isHidden=false
         }
         if(navigationAction.request.url?.absoluteString.range(of:"blob") != nil){
             toolbar.isHidden=false
         }
-        //   }
         
         decisionHandler(.allow)
     }
-    //   func webView(_ webView: WKWebView,  did navigation: WKNavigation!) {
-    //       print("Finished navigating to url \//(webView.url)")
-    //  }
+   
 }
 
 
