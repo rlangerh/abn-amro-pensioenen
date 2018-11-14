@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         toolbar.isHidden=true
-        let url = URL(string:"https://demo.abnamropensioenen.nl")
+        let url = URL(string:"http://10.62.2.10")
         
         myWebView.load(URLRequest(url:url!))
         //     myWebView.navigationDelegate
